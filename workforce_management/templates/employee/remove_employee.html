@@ -1,5 +1,18 @@
 {% extends 'employee/base.html' %}
 
 {% block content %}
-<h4>remove</h4>
+<div class="mt-6 flex justify-center font-bold">
+    <h4>Select an employee to remove</h4>
+</div>
+
+<div class="flex justify-center mt-4">
+    <div class="border-2 p-2 border-red-500">
+        {% for employee in employees %}
+        <div class="border-2 rounded-lg p-2 bg-sky-300 hover:bg-red-500">
+            <a class="" href="{% url 'remove' employee.employee_id %}">{{employee.first_name}} {{employee.last_name}}</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock content %}

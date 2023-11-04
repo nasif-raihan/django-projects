@@ -13,5 +13,6 @@ urlpatterns = [
     path("all", all_employee, name="all"),
     path("add", add_employee, name="add"),
     path("remove", remove_employee, name="remove"),
+    path("remove/<int:emp_id>", remove_employee, name="remove"),
     path("filter", filter_employee, name="filter"),
 ]

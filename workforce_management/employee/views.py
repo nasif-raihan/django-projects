@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.http import HttpResponse
 from django.shortcuts import render
 
 from .forms import EmployeeForm
@@ -34,8 +35,20 @@ def add_employee(request):
     )
 
 
-def remove_employee(request):
-    return render(request, "employee/remove_employee.html")
+def remove_employee(request, emp_id=0):
+    employees = Employee.objects.all()
+    if emp_id:
+        try:
+            employee_to_be_removed = Employee.objects.get(employee_id=emp_id)
+            employee_to_be_removed.delete()
+            return HttpResponse(f"Record of ID {emp_id} has been deleted.")
+        except Employee.DoesNotExist:
+            return HttpResponse("Please enter a valid Employee ID!")
+    return render(
+        request,
+        "employee/remove_employee.html",
+        context={"title": "Remove Employee", "employees": employees},
+    )
 
 
 def filter_employee(request):
