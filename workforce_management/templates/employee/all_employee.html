@@ -1,0 +1,33 @@
+{% extends 'employee/base.html' %}
+
+{% block content %}
+<div class="grid grid-cols-1">
+    <div class="flex justify-center mt-4">
+        <h4 class="justify">All Employee Details</h4>
+    </div>
+    <div class="flex justify-center">
+        <table class="table-auto m-2 border-2">
+          <thead>
+            <tr>
+              <th class="p-2 text-center">Employee ID</th>
+              <th class="p-2 text-center">Name</th>
+              <th class="p-2 text-center">Phone</th>
+              <th class="p-2 text-center">Department</th>
+              <th class="p-2 text-center">Role</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for employee in employees %}
+            <tr class="border-2">
+              <td class="p-2 text-center">{{employee.employee_id}}</td>
+              <td class="p-2 text-center">{{employee.first_name}} {{employee.last_name}}</td>
+              <td class="p-2 text-center">{{employee.phone}}</td>
+              <td class="p-2 text-center">{{employee.department}}</td>
+              <td class="p-2 text-center">{{employee.role}}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

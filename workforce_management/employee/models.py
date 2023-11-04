@@ -17,6 +17,7 @@ class Role(models.Model):
 
 
 class Employee(models.Model):
+    employee_id = models.IntegerField(primary_key=True)
     first_name = models.CharField(max_length=100, null=False)
     last_name = models.CharField(max_length=100)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)

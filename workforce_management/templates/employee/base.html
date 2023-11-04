@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+{% load static %}
+
+<html xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
-    <title>WorkForce</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-<h4>Hello, Ppl</h4>
+  <header class="text-gray-600 body-font">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-blue-500 rounded-full" viewBox="0 0 24 24" data-darkreader-inline-stroke="" style="--darkreader-inline-stroke: currentColor;">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+        </svg>
+        <span class="ml-3 text-xl">WorkForce Management System</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="flex justify-center">
+      <div class="grid m-2 grid-cols-4 gap-4">
+        <a href="{% url 'all' %}" class="p-2 text-center border-2 rounded-lg bg-sky-300 hover:bg-blue-300">View All</a>
+        <a href="{% url 'add' %}" class="p-2 text-center border-2 rounded-lg bg-sky-300 hover:bg-blue-300">Add Employee</a>
+        <a href="{% url 'remove' %}" class="p-2 text-center border-2 rounded-lg bg-sky-300 hover:bg-blue-300">Remove Employee</a>
+        <a href="{% url 'filter' %}" class="p-2 text-center border-2 rounded-lg bg-sky-300 hover:bg-blue-300">Filter Details</a>
+    </div>
+  </div>
+
+  {% block content %}
+  {% endblock content %}
 </body>
 </html>

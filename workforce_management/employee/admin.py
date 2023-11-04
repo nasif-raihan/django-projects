@@ -14,4 +14,4 @@ class RoleAdmin(admin.ModelAdmin):
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ("first_name", "last_name", "phone")
+    list_display = ("employee_id", "first_name", "last_name", "phone")
