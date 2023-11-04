@@ -1,5 +1,8 @@
+from datetime import datetime
+
 from django.shortcuts import render
 
+from .forms import EmployeeForm
 from .models import Employee
 
 
@@ -17,7 +20,18 @@ def all_employee(request):
 
 
 def add_employee(request):
-    return render(request, "employee/add_employee.html")
+    today = datetime.now()
+    form = EmployeeForm()
+    if request.method == "POST":
+        form = EmployeeForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+    return render(
+        request,
+        "employee/add_employee.html",
+        context={"title": "Add Employee", "today": today, "form": form},
+    )
 
 
 def remove_employee(request):
