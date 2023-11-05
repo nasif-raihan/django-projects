@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -52,4 +53,35 @@ def remove_employee(request, emp_id=0):
 
 
 def filter_employee(request):
-    return render(request, "employee/filter_employee.html")
+    if request.method == "POST":
+        employee_id = request.POST["employee_id"]
+        name = request.POST["name"]
+        department = request.POST["department"]
+        role = request.POST["role"]
+        employees = Employee.objects.all()
+
+        if employee_id and employee_id.isdigit():
+            employees = employees.filter(employee_id=int(employee_id))
+
+        if name:
+            employees = employees.filter(
+                Q(first_name__icontains=name) | Q(last_name__icontains=name)
+            )
+
+        if department:
+            employees = employees.filter(department__name__icontains=department)
+
+        if role:
+            employees = employees.filter(role__name__icontains=role)
+
+        return render(
+            request,
+            "employee/all_employee.html",
+            context={"title": "All Employees", "employees": employees},
+        )
+    else:
+        return render(
+            request,
+            "employee/filter_employee.html",
+            context={"title": "Filter Employee"},
+        )

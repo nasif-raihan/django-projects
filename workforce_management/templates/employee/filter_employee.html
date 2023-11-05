@@ -1,6 +1,22 @@
 {% extends 'employee/base.html' %}
 
 {% block content %}
-<h4>filter</h4>
+<div class="flex justify-center">
+    <h4 class="font-bold mt-4 mb-4">Search employees by filter</h4>
+</div>
+<div class="flex justify-center">
+    <form class="grid grid-cols-1" action="" method="post">
+        {% csrf_token %}
+        <label for="employee_id">Employee ID</label>
+        <input class="p-1 border-2 border-sky-300" id="employee_id" name="employee_id" value="" type="text">
+        <label for="name">Name</label>
+        <input class="p-1 border-2 border-sky-300" id="name" name="name" value="" type="text">
+        <label for="department">Department</label>
+        <input class="p-1 border-2 border-sky-300" id="department" name="department" value="" type="text">
+        <label for="role">Role</label>
+        <input class="p-1 border-2 border-sky-300" id="role" name="role" value="" type="text">
+        <input class="p-1 mb-4 mt-2 rounded-lg bg-sky-300" type="submit" value="Submit">
+    </form>
+</div>
 {% endblock content %}
 
