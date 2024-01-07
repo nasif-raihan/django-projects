@@ -14,16 +14,9 @@ def upload_image(request):
         if form.is_valid():
             form.save()
     form = ImageForm()
-    return render(
-        request, "uploader/home.html", context={"form": form, "title": "uploader"}
-    )
-
-
-def show_images(request):
     images = Image.objects.all()
-    form = ImageForm()
     return render(
         request,
         "uploader/home.html",
-        context={"title": "uploader", "form": form, "images": images},
+        context={"form": form, "title": "uploader", "images": images},
     )

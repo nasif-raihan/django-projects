@@ -10,14 +10,13 @@
         </div>
         <input class="mt-4 p-2 border-2 rounded-lg border-green-500 bg-green-500 text-white" type="submit" value="Upload">
     </form>
+</div>
 
+<div class="m-4 p-2 flex">
+    <div class="grid grid-cols-3 gap-2">
+        {% for image in images %}
+        <img class="p-2 " src="{{image.photo.url}}" width="400" height="400">
+        {% endfor %}
+    </div>
 </div>
 {% endblock content %}
-
-{% block images %}
-    {% for image in images %}
-        <div class="grid">
-            <div></div>
-        </div>
-    {% endfor %}
-{% endblock images %}
