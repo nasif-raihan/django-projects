@@ -1,0 +1,7 @@
+#id_gender {
+    display: flex;
+}
+
+#id_gender > div{
+    padding: 10px;
+}
