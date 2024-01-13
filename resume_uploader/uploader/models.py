@@ -5,7 +5,7 @@ class Resume(models.Model):
     name = models.CharField(max_length=100)
     birth_date = models.DateField(auto_now=False, auto_now_add=False)
     gender = models.CharField(
-        max_length=3, choices={"m": "Male", "f": "Female", "o": "Others"}
+        max_length=10, choices={"Male": "Male", "Female": "Female", "Others": "Others"}
     )
     nationality = models.CharField(max_length=100)
     division = models.CharField(max_length=100)

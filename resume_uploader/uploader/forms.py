@@ -5,17 +5,17 @@ from .models import Resume
 
 class ResumeForm(forms.ModelForm):
     gender = forms.ChoiceField(
-        choices={"m": "Male", "f": "Female", "o": "Prefer not to say"},
+        choices={"Male": "Male", "Female": "Female", "Others": "Prefer not to say"},
         widget=forms.RadioSelect,
     )
     job_location = forms.MultipleChoiceField(
         label="Preferred Job Location",
         choices={
-            "b": "Barishal",
-            "d": "Dhaka",
-            "k": "Khulna",
-            "s": "Sylhet",
-            "r": "remote",
+            "Barishal": "Barishal",
+            "Dhaka": "Dhaka",
+            "Khulna": "Khulna",
+            "Sylhet": "Sylhet",
+            "Remote": "Remote",
         },
         widget=forms.CheckboxSelectMultiple,
     )

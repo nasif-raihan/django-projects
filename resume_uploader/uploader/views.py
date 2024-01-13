@@ -19,7 +19,10 @@ class HomeView(View):
         form = ResumeForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-        return render(request, "uploader/home.html", {"form": form})
+        candidates = Resume.objects.all()
+        return render(
+            request, "uploader/home.html", {"form": form, "candidates": candidates}
+        )
 
 
 class CandidateView(View):
