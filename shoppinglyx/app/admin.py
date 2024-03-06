@@ -17,6 +17,7 @@ class ProductAdmin(admin.ModelAdmin):
         "brand",
         "selling_price",
         "discount_price",
+        "product_image",
     )
 
 
