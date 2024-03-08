@@ -13,10 +13,10 @@ DIVISIONS = {
 }
 
 CATEGORY = {
-    "Mobile": "Mobile",
-    "Laptop": "Laptop",
-    "Top Wear": "Top Wear",
-    "Bottom Wear": "Bottom Wear",
+    "mobile": "Mobile",
+    "laptop": "Laptop",
+    "top_wear": "Top Wear",
+    "bottom_wear": "Bottom Wear",
 }
 
 STATUS = {
@@ -43,7 +43,7 @@ class Customer(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=100)
     selling_price = models.FloatField()
-    discount_price = models.FloatField()
+    discounted_price = models.FloatField()
     description = models.TextField()
     brand = models.CharField(max_length=100)
     category = models.CharField(choices=CATEGORY, max_length=100)

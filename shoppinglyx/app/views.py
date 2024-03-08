@@ -1,8 +1,26 @@
 from django.shortcuts import render
+from django.views import View
+from .models import Cart, Customer, Product, OrderPlaced
+import logging
+
+logger = logging.getLogger(__name__)
 
 
-def home(request):
-    return render(request, "app/home.html")
+class ProductView(View):
+    def __init__(self):
+        super(ProductView, self).__init__()
+        logger.debug(f"ProductView called")
+
+    @staticmethod
+    def get(request):
+        context = {
+            "top_wears": Product.objects.filter(category="top_wear"),
+            "bottom_wears": Product.objects.filter(category="bottom_wear"),
+            "mobiles": Product.objects.filter(category="mobile"),
+            "laptops": Product.objects.filter(category="laptop"),
+        }
+        logger.debug(f"{context=}")
+        return render(request, "app/home.html", context=context)
 
 
 def product_detail(request):
