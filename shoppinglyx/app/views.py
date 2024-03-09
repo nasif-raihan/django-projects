@@ -1,7 +1,10 @@
+import logging
+
+from django.db.models import Q
 from django.shortcuts import render
 from django.views import View
-from .models import Cart, Customer, Product, OrderPlaced
-import logging
+
+from .models import Product
 
 logger = logging.getLogger(__name__)
 
@@ -13,11 +16,21 @@ class ProductView(View):
 
     @staticmethod
     def get(request):
+        trending_deals = Product.objects.filter(
+            (Q(category="mobile") & Q(discounted_price__lte=10000))
+            | (Q(category="laptop") & Q(brand="apple"))
+            | (Q(category="top_wear") & Q(selling_price__gte=500))
+            | (
+                Q(category="bottom_wear") & Q(discounted_price__lte=800)
+                | Q(selling_price__gte=500)
+            )
+        )
         context = {
             "top_wears": Product.objects.filter(category="top_wear"),
             "bottom_wears": Product.objects.filter(category="bottom_wear"),
             "mobiles": Product.objects.filter(category="mobile"),
             "laptops": Product.objects.filter(category="laptop"),
+            "trending_deals": trending_deals,
         }
         logger.debug(f"{context=}")
         return render(request, "app/home.html", context=context)
