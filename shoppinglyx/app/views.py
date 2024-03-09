@@ -100,8 +100,8 @@ def login(request):
     return render(request, "app/login.html")
 
 
-def customerregistration(request):
-    return render(request, "app/customerregistration.html")
+def registration(request):
+    return render(request, "app/registration.html")
 
 
 def checkout(request):
