@@ -18,6 +18,7 @@ urlpatterns = [
     path("orders/", views.orders, name="orders"),
     path("changepassword/", views.change_password, name="changepassword"),
     path("mobile/", views.mobile, name="mobile"),
+    path("mobile/<slug:slug_field>", views.mobile, name="mobile-slug"),
     path("login/", views.login, name="login"),
     path("registration/", views.customerregistration, name="customerregistration"),
     path("checkout/", views.checkout, name="checkout"),

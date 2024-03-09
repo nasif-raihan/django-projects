@@ -1,5 +1,5 @@
 import logging
-from django.http import HttpResponse
+
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.views import View
@@ -48,6 +48,7 @@ class ProductDetailView(View):
             "category": queryset.category,
             "product_image": queryset.product_image,
         }
+        print(product)
         return render(request, "app/product_detail.html", {"product": product})
 
 
@@ -75,8 +76,24 @@ def change_password(request):
     return render(request, "app/changepassword.html")
 
 
-def mobile(request):
-    return render(request, "app/mobile.html")
+def mobile(request, slug_field=None):
+    slug_field = slug_field.lower() if slug_field else None
+    if slug_field in ("samsung", "iphone"):
+        mobiles = Product.objects.filter(category="mobile").filter(brand=slug_field)
+    elif slug_field == "below":
+        mobiles = Product.objects.filter(
+            Q(category="mobile") & Q(discounted_price__lte=10000)
+        )
+    elif slug_field == "above":
+        mobiles = Product.objects.filter(
+            Q(category="mobile") & Q(discounted_price__gte=10000)
+        )
+        print(mobiles)
+
+    else:
+        mobiles = Product.objects.filter(category="mobile")
+
+    return render(request, "app/mobile.html", {"mobiles": mobiles})
 
 
 def login(request):

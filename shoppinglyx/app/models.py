@@ -49,6 +49,10 @@ class Product(models.Model):
     category = models.CharField(choices=CATEGORY, max_length=100)
     product_image = models.ImageField(upload_to="product_images")
 
+    def save(self, *args, **kwargs):
+        self.brand = self.brand.lower()
+        super(Product, self).save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.id}"
 
