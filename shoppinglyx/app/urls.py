@@ -20,6 +20,6 @@ urlpatterns = [
     path("mobile/", views.mobile, name="mobile"),
     path("mobile/<slug:slug_field>", views.mobile, name="mobile-slug"),
     path("login/", views.login, name="login"),
-    path("registration/", views.registration, name="customerregistration"),
+    path("registration/", views.RegistrationView.as_view(), name="registration"),
     path("checkout/", views.checkout, name="checkout"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

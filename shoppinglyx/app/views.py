@@ -1,9 +1,11 @@
 import logging
 
+from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 
+from .forms import RegistrationForm
 from .models import Product
 
 logger = logging.getLogger(__name__)
@@ -37,7 +39,8 @@ class ProductView(View):
 
 
 class ProductDetailView(View):
-    def get(self, request, pk):
+    @staticmethod
+    def get(request, pk):
         queryset = get_object_or_404(Product, pk=pk)
         product = {
             "title": queryset.title,
@@ -50,6 +53,23 @@ class ProductDetailView(View):
         }
         print(product)
         return render(request, "app/product_detail.html", {"product": product})
+
+
+class RegistrationView(View):
+    @staticmethod
+    def get(request):
+        form = RegistrationForm()
+        return render(request, "app/registration.html", {"form": form})
+
+    @staticmethod
+    def post(request):
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            messages.success(
+                request, message="Congratulations! User is registered successfully."
+            )
+            form.save()
+        return render(request, "app/registration.html", {"form": form})
 
 
 def add_to_cart(request):
