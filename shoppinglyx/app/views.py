@@ -1,7 +1,7 @@
 import logging
-
+from django.http import HttpResponse
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import View
 
 from .models import Product
@@ -36,8 +36,19 @@ class ProductView(View):
         return render(request, "app/home.html", context=context)
 
 
-def product_detail(request):
-    return render(request, "app/productdetail.html")
+class ProductDetailView(View):
+    def get(self, request, pk):
+        queryset = get_object_or_404(Product, pk=pk)
+        product = {
+            "title": queryset.title,
+            "selling_price": queryset.selling_price,
+            "discounted_price": queryset.discounted_price,
+            "description": queryset.description,
+            "brand": queryset.brand,
+            "category": queryset.category,
+            "product_image": queryset.product_image,
+        }
+        return render(request, "app/product_detail.html", {"product": product})
 
 
 def add_to_cart(request):
