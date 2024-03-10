@@ -18,7 +18,22 @@ urlpatterns = [
     path("profile/", views.profile, name="profile"),
     path("address/", views.address, name="address"),
     path("orders/", views.orders, name="orders"),
-    path("changepassword/", views.change_password, name="changepassword"),
+    path(
+        "password-change/",
+        auth_views.PasswordChangeView.as_view(
+            template_name="app/password_change.html",
+            form_class=forms.UserPasswordChangeForm,
+            success_url="/password-change-done/",
+        ),
+        name="password-change",
+    ),
+    path(
+        "password-change-done/",
+        auth_views.PasswordChangeDoneView.as_view(
+            template_name="app/password_change_done.html"
+        ),
+        name="password-change-done",
+    ),
     path("mobile/", views.mobile, name="mobile"),
     path("mobile/<slug:slug_field>", views.mobile, name="mobile-slug"),
     path(

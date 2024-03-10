@@ -92,10 +92,6 @@ def orders(request):
     return render(request, "app/orders.html")
 
 
-def change_password(request):
-    return render(request, "app/changepassword.html")
-
-
 def mobile(request, slug_field=None):
     slug_field = slug_field.lower() if slug_field else None
     if slug_field in ("samsung", "iphone"):
