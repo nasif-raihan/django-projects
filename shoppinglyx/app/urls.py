@@ -39,22 +39,22 @@ urlpatterns = [
         auth_views.PasswordResetView.as_view(
             template_name="app/password_reset.html",
             form_class=forms.UserPasswordResetForm,
-            success_url="/password-reset-done/",
         ),
         name="password-reset",
-    ),
-    path(
-        "password-reset-confirm/",
-        auth_views.PasswordResetConfirmView.as_view(
-            template_name="app/password_reset_confirm.html"
-        ),
-        name="password-reset-confirm",
     ),
     path(
         "password-reset-done/",
         auth_views.PasswordResetDoneView.as_view(
             template_name="app/password_reset_done.html"
         ),
+    ),
+    path(
+        "password-reset-confirm/<uid64>/<token>/",
+        auth_views.PasswordResetConfirmView.as_view(
+            template_name="app/password_reset_confirm.html",
+            form_class=forms.UserPasswordChangeForm,
+        ),
+        name="password-reset-confirm",
     ),
     path("mobile/", views.mobile, name="mobile"),
     path("mobile/<slug:slug_field>", views.mobile, name="mobile-slug"),
