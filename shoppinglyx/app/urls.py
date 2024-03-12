@@ -34,6 +34,21 @@ urlpatterns = [
         ),
         name="password-change-done",
     ),
+    path(
+        "password-reset/",
+        auth_views.PasswordResetView.as_view(
+            template_name="app/password_reset.html",
+            form_class=forms.UserPasswordResetForm,
+            success_url="/password-reset-done/",
+        ),
+        name="password-reset",
+    ),
+    path(
+        "password-reset-done/",
+        auth_views.PasswordResetDoneView.as_view(
+            template_name="app/password_reset_done.html"
+        ),
+    ),
     path("mobile/", views.mobile, name="mobile"),
     path("mobile/<slug:slug_field>", views.mobile, name="mobile-slug"),
     path(

@@ -5,6 +5,7 @@ from django.contrib.auth.forms import (
     AuthenticationForm,
     UsernameField,
     PasswordChangeForm,
+    PasswordResetForm,
 )
 from django.contrib.auth.models import User
 
@@ -70,5 +71,15 @@ class UserPasswordChangeForm(PasswordChangeForm):
         strip=False,
         widget=forms.PasswordInput(
             attrs={"autocomplete": "new-password", "class": "form-control"}
+        ),
+    )
+
+
+class UserPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(
+        label=gettext_lazy("Email"),
+        max_length=254,
+        widget=forms.EmailInput(
+            attrs={"class": "form-control", "autocomplete": "email"}
         ),
     )
