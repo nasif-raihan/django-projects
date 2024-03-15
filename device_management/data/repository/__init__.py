@@ -1,1 +1,2 @@
 from .db_employee_repository import DBEmployeeRepository
+from .db_company_repository import DBCompanyRepository
