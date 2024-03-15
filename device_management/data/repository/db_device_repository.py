@@ -35,7 +35,9 @@ class DBDeviceRepository(DeviceRepository):
 
     @classmethod
     def to_device(cls, db_device: DBDevice) -> Device:
-        return Device(name=db_device.name, condition=db_device.condition)
+        return Device(
+            device_id=db_device.id, name=db_device.name, condition=db_device.condition
+        )
 
     @classmethod
     def to_db_device(cls, device: Device) -> DBDevice:

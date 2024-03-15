@@ -9,7 +9,7 @@ from .employee import Employee
 class Checkout:
     def __init__(
         self,
-        checkout_date: datetime,
+        checkout_id: int,
         checkout_condition: DeviceCondition,
         return_date: datetime | None,
         return_condition: DeviceCondition | None,
@@ -17,7 +17,7 @@ class Checkout:
         employee: Employee,
         company: Company,
     ):
-        self.checkout_date = checkout_date
+        self.checkout_id = checkout_id
         self.checkout_condition = checkout_condition
         self.return_date = return_date
         self.return_condition = return_condition
