@@ -1,3 +1,4 @@
-from .db_employee_repository import DBEmployeeRepository
+from .db_checkout_repository import DBCheckoutRepository
 from .db_company_repository import DBCompanyRepository
 from .db_device_repository import DBDeviceRepository
+from .db_employee_repository import DBEmployeeRepository
