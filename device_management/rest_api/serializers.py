@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Company, Employee, TakenDeviceHistory
+from .models import Company, Employee, Device, Checkout
 
 
 class CompanySerializer(serializers.ModelSerializer):
@@ -17,5 +17,11 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
 class DeviceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = TakenDeviceHistory
+        model = Device
+        fields = "__all__"
+
+
+class CheckoutSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Checkout
         fields = "__all__"
