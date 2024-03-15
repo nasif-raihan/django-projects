@@ -1,3 +1,4 @@
+from .checkout import Checkout
 from .company import Company
 from .designation import Designation
 from .device import Device
