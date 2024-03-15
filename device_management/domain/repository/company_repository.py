@@ -13,5 +13,5 @@ class CompanyRepository(ABC):
         raise NotImplemented("Implement get_company method")
 
     @abstractmethod
-    def get_registered_company_count(self) -> int:
+    def update_company(self) -> Company:
         raise NotImplemented("Implement get_registered_company_count method")
