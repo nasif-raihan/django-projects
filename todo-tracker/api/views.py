@@ -9,5 +9,5 @@ from api.serializers import TodoSerializer
 class TodoAPI(ModelViewSet):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticatedOrReadOnly]

@@ -9,7 +9,7 @@ from rest_framework_simplejwt.views import (
 from api.views import TodoAPI
 
 router = DefaultRouter()
-router.register(prefix="api/todo/", viewset=TodoAPI, basename="todos")
+router.register(prefix="api/todo", viewset=TodoAPI, basename="todos")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
