@@ -3,7 +3,7 @@ from django.db import models
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email: str, username: str, password: str = None):
+    def create_user(self, email: str, username: str, password: str = None, password2: str = None):
         user = self.model(email=self.normalize_email(email), username=username)
         user.set_password(password)
         user.save(using=self._db)
