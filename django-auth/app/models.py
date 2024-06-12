@@ -12,6 +12,7 @@ class UserManager(BaseUserManager):
     def create_superuser(self, email: str, username: str, password: str = None):
         user = self.create_user(email, username, password)
         user.is_admin = True
+        user.is_staff = True
         user.is_active = True
         user.save(using=self._db)
         return user
@@ -24,8 +25,9 @@ class User(AbstractBaseUser):
         unique=True,
     )
     username = models.CharField(max_length=200, unique=True)
-    is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -37,13 +39,10 @@ class User(AbstractBaseUser):
     def __str__(self) -> str:
         return f"{self.username}"
 
-    def has_perm(self) -> models.BooleanField:
-        return self.is_admin
-
     @staticmethod
-    def has_module_perms() -> bool:
+    def has_perm(perm, obj=None):
         return True
 
-    @property
-    def is_staff(self) -> models.BooleanField:
-        return self.is_admin
+    @staticmethod
+    def has_module_perms(app_label):
+        return True

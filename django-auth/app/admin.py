@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
-from forms import UserChangeForm, UserCreationForm
+from .forms import UserChangeForm, UserCreationForm
 
 from .models import User
 
@@ -15,7 +15,7 @@ class UserAdmin(BaseUserAdmin):
     fieldsets = [
         (None, {"fields": ["email", "password"]}),
         ("Personal info", {"fields": ["username"]}),
-        ("Permissions", {"fields": ["is_admin"]}),
+        ("Permissions", {"fields": ["is_active", "is_staff", "is_admin"]}),
     ]
 
     add_fieldsets = [
