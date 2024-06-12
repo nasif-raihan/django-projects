@@ -7,7 +7,7 @@ from ..serializers import UserLoginSerializer
 
 
 class UserLoginView(APIView):
-    def post(self, request, format=None):
+    def post(self, request):
         serializer = UserLoginSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             username = serializer.data.get("username")
