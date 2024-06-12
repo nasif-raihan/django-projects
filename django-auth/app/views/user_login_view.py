@@ -1,14 +1,23 @@
+from django.contrib.auth import authenticate
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from ..serializers import UserRegistrationSerializer
+
+from ..serializers import UserLoginSerializer
 
 
-class UserRegistrationView(APIView):
+class UserLoginView(APIView):
     def post(self, request, format=None):
-        serializer = UserRegistrationSerializer(data=request.data)
+        serializer = UserLoginSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            user = serializer.save()
+            username = serializer.data.get("username")
+            password = serializer.data.get("password")
+            user = authenticate(username=username, password=password)
+            if user is None:
+                return Response(
+                    data={"errors": "username or password is not matched!"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
             return Response(
                 data={
                     "user": {
@@ -20,11 +29,11 @@ class UserRegistrationView(APIView):
                         "created_at": user.created_at,
                         "updated_at": user.updated_at,
                     },
-                    "message": "Successfully registered a new user!",
+                    "message": "User logged in successfully",
                 },
-                status=status.HTTP_201_CREATED,
+                status=status.HTTP_200_OK,
             )
         return Response(
-            data={"errors": serializer.error_messages},
+            data={"message": serializer.error_message},
             status=status.HTTP_400_BAD_REQUEST,
         )
