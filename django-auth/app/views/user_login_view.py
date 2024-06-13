@@ -1,12 +1,18 @@
+from typing import Any
+
 from django.contrib.auth import authenticate
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from ..serializers import UserLoginSerializer
+from ..serializers import CustomTokenObtainPairSerializer, UserLoginSerializer
 
 
 class UserLoginView(APIView):
+    def __init__(self, **kwargs: Any) -> None:
+        self.token_serializer = CustomTokenObtainPairSerializer()
+        super().__init__(**kwargs)
+
     def post(self, request):
         serializer = UserLoginSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -18,6 +24,10 @@ class UserLoginView(APIView):
                     data={"errors": "username or password is not matched!"},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
+
+            token = self.token_serializer.get_token(user)
+            access_token = str(token.access_token)
+            refresh_token = str(token)
             return Response(
                 data={
                     "user": {
@@ -29,6 +39,8 @@ class UserLoginView(APIView):
                         "created_at": user.created_at,
                         "updated_at": user.updated_at,
                     },
+                    "access_token": access_token,
+                    "refresh_token": refresh_token,
                     "message": "User logged in successfully",
                 },
                 status=status.HTTP_200_OK,
