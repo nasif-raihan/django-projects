@@ -14,9 +14,10 @@ class SendPasswordResetMailSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         email = attrs.get("email")
-        user = User.objects.filter(email=email)
 
-        if user is None:
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
             raise serializers.ValidationError("You are not a registered user.")
 
         user_id = urlsafe_base64_encode(s=force_bytes(user.id))
