@@ -14,8 +14,9 @@ class UserChangePasswordView(APIView):
             data=request.data, context={"user": request.user}
         )
         if serializer.is_valid(raise_exception=True):
+            serializer.save()
             return Response(
                 data={"message": "Successfully changed the user's password."},
                 status=status.HTTP_201_CREATED,
             )
-        return Response(data=serializer.data, status=status.HTTP_400_BAD_REQUEST)
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
