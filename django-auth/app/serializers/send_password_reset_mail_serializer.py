@@ -19,10 +19,10 @@ class SendPasswordResetMailSerializer(serializers.Serializer):
         if user is None:
             raise serializers.ValidationError("You are not a registered user.")
 
-        uid = urlsafe_base64_encode(s=force_bytes(user.id))
+        user_id = urlsafe_base64_encode(s=force_bytes(user.id))
         token = PasswordResetTokenGenerator().make_token(user)
-        link = f"http://localhost:3000/api/user/reset/{uid}/{token}"
-        body = f"Click Following Link to Reset Your Password: {link}"
+        link = f"http://localhost:3000/api/user/reset/{user_id}/{token}"
+        body = f"Please click the following link to reset your password: {link}"
         data = {
             "subject": "Reset your password",
             "body": body,
