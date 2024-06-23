@@ -1,5 +1,6 @@
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.utils.http import DjangoUnicodeDecodeError, urlsafe_base64_decode
+from django.utils.encoding import DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_decode
 from rest_framework import serializers
 
 from ..models import User
@@ -29,7 +30,7 @@ class UserPasswordResetSerializer(serializers.Serializer):
 
         try:
             user_id = urlsafe_base64_decode(user_id).decode()
-            user = User.objects.get(pk=user_id)
+            user = User.objects.get(id=user_id)
 
             if not PasswordResetTokenGenerator().check_token(user, token):
                 raise serializers.ValidationError("Token is not valid or expired!")

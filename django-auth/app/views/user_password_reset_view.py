@@ -6,7 +6,7 @@ from ..serializers import UserPasswordResetSerializer
 
 
 class UserPasswordResetView(APIView):
-    def post(self, request, user_id, token):
+    def post(self, request, user_id: str, token: str) -> Response:
         serializer = UserPasswordResetSerializer(
             data=request.data, context={"user_id": user_id, "token": token}
         )
