@@ -9,7 +9,8 @@ from ..serializers import UserChangePasswordSerializer
 class UserChangePasswordView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def post(self, request):
+    @staticmethod
+    def post(request) -> Response:
         serializer = UserChangePasswordSerializer(
             data=request.data, context={"user": request.user}
         )

@@ -39,5 +39,5 @@ class UserPasswordResetSerializer(serializers.Serializer):
             user.save()
             return attrs
 
-        except (DjangoUnicodeDecodeError, User.DoesNotExist) as e:
+        except (DjangoUnicodeDecodeError, User.DoesNotExist):
             raise serializers.ValidationError("Token is not valid or expired!")

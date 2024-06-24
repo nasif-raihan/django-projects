@@ -13,7 +13,7 @@ class UserLoginView(APIView):
         self.token_serializer = CustomTokenObtainPairSerializer()
         super().__init__(**kwargs)
 
-    def post(self, request):
+    def post(self, request) -> Response:
         serializer = UserLoginSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             username = serializer.data.get("username")

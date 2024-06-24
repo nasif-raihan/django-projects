@@ -8,7 +8,8 @@ from ..models import User
 
 
 class RefreshTokenView(APIView):
-    def post(self, request):
+    @staticmethod
+    def post(request) -> Response:
         refresh_token = request.data.get("refresh")
 
         if not refresh_token:
@@ -38,7 +39,7 @@ class RefreshTokenView(APIView):
                 status=status.HTTP_200_OK,
             )
 
-        except (InvalidToken, TokenError) as e:
+        except (InvalidToken, TokenError):
             return Response(
                 data={"message": "Valid refresh token is required."},
                 status=status.HTTP_400_BAD_REQUEST,

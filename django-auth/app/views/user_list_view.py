@@ -10,7 +10,8 @@ from ..serializers import UserProfileSerializer
 class UserListView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get(self, request):
+    @staticmethod
+    def get(request) -> Response:
         users = User.objects.all()
         serializer = UserProfileSerializer(users, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)

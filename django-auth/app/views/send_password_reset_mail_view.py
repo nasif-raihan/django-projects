@@ -6,7 +6,8 @@ from ..serializers import SendPasswordResetMailSerializer
 
 
 class SendPasswordResetMailView(APIView):
-    def post(self, request):
+    @staticmethod
+    def post(request) -> Response:
         serializer = SendPasswordResetMailSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         return Response(
