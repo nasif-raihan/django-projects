@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "django-keycloak"
+version = "0.1.0"
+description = ""
+authors = ["nasif raihan <nasif.raihan78@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^5.1.4"
+python-keycloak = "^5.1.1"
+djangorestframework = "^3.15.2"
+environs = "^11.2.1"
+pyjwt = "^2.10.1"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.10.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
