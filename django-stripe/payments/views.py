@@ -1,10 +1,14 @@
-import stripe
-from django.conf import settings
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+
+import stripe
+from django.conf import settings
+from django.http import HttpResponse, JsonResponse
+from rest_framework.views import APIView
 from .models import CoffeePurchase
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
+STRIPE_WEBHOOK_SECRET = settings.STRIPE_WEBHOOK_SECRET
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
@@ -38,3 +42,43 @@ class BuyCoffeeView(APIView):
             return Response(
                 {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+
+
+class StripeWebhookView(APIView):
+    authentication_classes = []  # Allow unauthenticated
+    permission_classes = []
+
+    def post(self, request, *args, **kwargs):
+        payload = request.body
+        sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
+
+        try:
+            event = stripe.Webhook.construct_event(
+                payload, sig_header, STRIPE_WEBHOOK_SECRET
+            )
+        except ValueError:
+            return HttpResponse(status=400)
+        except stripe.error.SignatureVerificationError:
+            return HttpResponse(status=400)
+
+        # Handle the event
+        if event["type"] == "checkout.session.completed":
+            session = event["data"]["object"]
+            session_id = session.get("id")
+
+            try:
+                purchase = CoffeePurchase.objects.get(session_id=session_id)
+                purchase.is_paid = True
+                purchase.save()
+            except CoffeePurchase.DoesNotExist:
+                pass
+
+        return HttpResponse(status=200)
+
+
+def success(request):
+    return JsonResponse({"status": "Success"})
+
+
+def cancel(request):
+    return JsonResponse({"status": "Cancel"})
